@@ -1,21 +1,27 @@
 <?php
+//mendefinisikan class Database
 class Database {
-    private $host = "localhost";
-	private $username = "root";
-	private $password = "";
-	private $database = "pweb2";
-	protected $koneksi = "";
+	//property privat untuk menyimpan informasi koneksi database
+    private $host = "localhost"; //host untuk koneksi database
+	private $username = "root";  //username untuk koneksi database
+	private $password = "";		//password untuk koneksi database
+	private $database = "pweb2"; //nama database yang akan digunakan
+	protected $koneksi = "";	//property untuk menyimpan objek koneksi database bersifat protected
 
+	//Constructor untuk menginisialisasi class yang dijalankan saat objek dibuat
     function __construct()
 	{
+		//menginisialisasi koneksi database menggunakan mysqli_connect
 		$this->koneksi = mysqli_connect($this->host, $this->username, $this->password,$this->database);
+		// Mengecek apakah koneksi gagal dan menampilkan pesan error jika gagal
 		if (mysqli_connect_errno()){
 			echo "Koneksi database gagal : " . mysqli_connect_error();
 		}
 	}
+
+	//method tampilData di parent class Database
+	function tampilData(){
+	}
 }
-/*class dtabase {
-	private $host : "loc
-}*/
 ?>
 
