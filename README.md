@@ -67,6 +67,13 @@ Isi tabel student_withdrawal meliputi:
 <p>mysqli_connect($this->host, $this->username, $this->password, $this->database) untuk membuat koneksi ke database menggunakan informasi yang telah dideklarasikan.</p>
 <p>if (mysqli_connect_errno()){ ... } digunakan untuk memeriksa apakah koneksi gagal dan jika ya akan menampilkan pesan kesalahan dengan mysqli_connect_error().</p>
 
+            //method tampilData di parent class Database
+          	function tampilData(){
+          	}
+
+<p>Metode tampilData di parent class Database yang akan di implemetasikan di class turunannya</p>
+           
+
 <h5>Berikut Full Kodenya</h5>
 
           <?php
@@ -89,12 +96,13 @@ Isi tabel student_withdrawal meliputi:
           			echo "Koneksi database gagal : " . mysqli_connect_error();
           		}
           	}
+
+            //method tampilData di parent class Database
+          	function tampilData(){
+          	}
           }
           ?>
           
-<h5>Berikut Outputnya</h5>
-
--------------------------------------------------------------
 <h4>3. Mambuat Class Repots yang mewarisi Class Database</h4>
 <p>Definisi class Reports</p>
 
@@ -103,25 +111,32 @@ Isi tabel student_withdrawal meliputi:
         //class Reports yang mewarisi dari class Database
         class Repotrs extends Database {
 
-<p></p>
+<p>require_once ('Database.php') untuk menyertakan file Database.php yang berisi definisi class Database ke dalam skrip ini. Ini memastikan file hanya disertakan satu kali.</p>
+<p> Class Repotrs (child class) mewarisi (inheritance) dari class Database (parent class). Ini berarti Repotrs memiliki akses ke semua properti dan metode yang didefinisikan dalam Database termasuk koneksi ke database.</p>
         
-            //method untuk mengambil dan menampilkan data dari tabel reports
+            /* Override method tampilData
+            method untuk mengambil dan menampilkan data dari tabel reports*/
             function tampilData(){
-                $query = "SELECT * FROM reports"; // Membuat query SQL untuk mengambil semua data dari tabel "reports".
+                $query = "SELECT * FROM reports where status = 'pending'"; // Membuat query SQL untuk mengambil semua data dari tabel "reports".
                 $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
                 while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
         			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
         		}
-        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel "reports".
-        
+        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel "reports".    
             }
-        }
+
+<p>Metode tampilData dalam kelas Repotrs digunakan untuk mengambil data dari tabel reports di mana statusnya adalah 'pending'. Metode ini mengembalikan data dalam bentuk array.</p>
+      
         //membuat instansiasi objek dari class Reports
         $tampil = new Repotrs();
+
+<p>Membuat objek baru dari kelas Repotrs yang secara otomatis akan memanggil Construktor dari kelas Database untuk menginisialisasi koneksi database.</p>
+        
         // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $data.
         $data = $tampil->tampilData();
-        ?>
-        
+
+<p>Memanggil metode tampilData dari objek Repotrs untuk mendapatkan data yang kemudian akan ditampilkan di halaman HTML.</p>
+                
         <!DOCTYPE html>
         <html lang="en">
         <head>
@@ -173,6 +188,88 @@ Isi tabel student_withdrawal meliputi:
                 </table>
         </body>
         </html>
+
+<p>Kode ini digunakan untuk menampilkan data dari tabel reports yang memiliki status 'pending'. Data ditampilkan dalam tabel HTML di mana setiap baris mewakili satu entri dari tabel reports. </p>
+
+<h5>Berikut Full Kodenya</h5>
+
+        <?php
+        require_once ('Database.php');
+        //class Reports yang mewarisi dari class Database
+        class Repotrs extends Database {
+            //method untuk mengambil dan menampilkan data dari tabel reports
+            function tampilData(){
+                $query = "SELECT * FROM reports where status = 'pending' "; // Membuat query SQL untuk mengambil semua data dari tabel "reports".
+                $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
+                while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
+        			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
+        		}
+        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel "reports".
+        
+            }
+        }
+        //membuat instansiasi objek dari class Reports
+        $reports = new Repotrs();
+        // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $tampil.
+        $tampil = $reports->tampilData();
+        ?>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Tampil Data</title>
+        </head>
+        <body>
+            <a href = "tampil_repots.php">Data Withdrawal</a>
+            <a href = "tampil_withdrawal.php">Data Withdrawal</a>
+            <table border="1">
+                 <tr>
+                    <th>No</th> <!-- Kolom untuk nomor urut. -->
+                    <th>Id Report</th> <!-- Kolom untukId Report. -->
+                    <th>Id Warnings</th> <!-- Kolom untuk Id Warnings. -->
+                    <th>Id Gpas</th> <!-- Kolom untuk Id Gpas. -->
+                    <th>Id Guidance</th> <!-- Kolom untuk Id Guidance -->
+                    <th>Id Achievments</th> <!-- Kolom untuk Id Achievments-->
+                    <th>Id Scholarship</th> <!-- Kolom untuk Id Scholarship -->
+                    <th>Id Student Withdrawals</th> <!-- Kolom untuk Id Student Withdrawals -->
+                    <th>Id Tuition Arreas</th> <!-- Kolom untuk Id Tuition Arreas. -->
+                    <th>Reports Date</th> <!-- Kolom untuk Reports Date. -->
+                    <th>Status</th> <!-- Kolom untuk Status. -->
+                    <th>Has Acc Academic Advisor</th> <!-- Kolom untuk status Has Acc Academic Advisor. -->
+                    <th>Has Acc Head Of program</th> <!-- Kolom untuk status Has Acc Head Of program -->
+                </tr>
+                        <?php 
+                        $no = 1; // Inisialisasi nomor urut mulai dari 1.
+                        foreach($tampil as $row){ // Melakukan perulangan melalui setiap baris data yang diambil dari database.
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td> <!-- Menampilkan nomor urut dan menambahkannya setiap kali perulangan. -->
+                                <td><?php echo $row['id_report']; ?></td> <!-- Menampilkan Id Report -->
+                                <td><?php echo $row['id_warnings']; ?></td> <!-- Menampilkan Id Warnings. -->
+                                <td><?php echo $row['id_gpas']; ?></td>     <!-- Menampilkan Id Gpas. -->
+                                <td><?php echo $row['id_guidance']; ?></td>  <!-- Menampilkan Id Guidance. -->
+                                <td><?php echo $row['id_achievments']; ?></td>  <!-- Menampilkan Id Achievments. -->
+                                <td><?php echo $row['id_scholarship']; ?></td>  <!-- Menampilkan Id Scholarship -->
+                                <td><?php echo $row['id_students_withdrawals']; ?></td>  <!-- Menampilkan Id Student Withdrawals -->
+                                <td><?php echo $row['id_tuition_arrears']; ?></td>  <!-- Menampilkan Id Tuition Arreas -->
+                                <td><?php echo $row['report_date']; ?></td> <!-- Menampilkan Reports Date -->
+                                <td><?php echo $row['status']; ?></td>  <!-- Menampilkan Status. -->
+                                <td><?php echo $row['has_acc_academic_advisor']; ?></td>  <!-- Menampilkan Has Acc Academic Advisor. -->
+                                <td><?php echo $row['has_acc_head_of_program']; ?></td>  <!-- Menampilkan Has Acc Head Of program -->
+                            </tr>
+                            <?php 
+                        }
+                        ?>
+                </table>
+        </body>
+        </html>
+
+<h5>Berikut Outputnya</h5>
+
+----------------------------------------------------------------
+        
                   
         
                 
