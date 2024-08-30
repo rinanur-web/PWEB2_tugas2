@@ -11,8 +11,8 @@
 <p>Case Study: Menggunakan tabel reports & student_withdrawal</p>
 
 <h4>1. Membuat Database dan tabel reports & student_withdrawal</h4>
-<p>Membuat database dan tabel reports & student_withdrawal di phpmyadmin. Nama dan isi tabel disesuaikan dengan ERD yang dibuat</p>
-<p>Isi tabel reports meliputi:</p>
+<p>Membuat database dan tabel reports & student_withdrawal di phpmyadmin. Nama dan isi tabel disesuaikan dengan ERD yang dibuat.
+Isi tabel reports meliputi:
 <ol>
   <li>Id Report</li>
   <li>Id Warnings</li>
@@ -27,7 +27,7 @@
   <li>Has Acc Academic Advisor</li>
   <li>Has Acc Head Of program</th></li>
 </ol>
-<p>Isi tabel student_withdrawal meliputi:</p>
+Isi tabel student_withdrawal meliputi:
 <ol>
    <li>Id Id Student Withdrawals</li>
    <li>Id Student</li>
@@ -35,6 +35,7 @@
    <li>Decree Number</li>
    <li>Reason</li>
 </ol>
+</p>
 
 <h4>Membuat Class Database untuk mengkoneksi ke database</h4>
 <p>Mendefinisikan class Database</p>
@@ -66,7 +67,7 @@
 <p>mysqli_connect($this->host, $this->username, $this->password, $this->database) untuk membuat koneksi ke database menggunakan informasi yang telah dideklarasikan.</p>
 <p>if (mysqli_connect_errno()){ ... } digunakan untuk memeriksa apakah koneksi gagal dan jika ya akan menampilkan pesan kesalahan dengan mysqli_connect_error().</p>
 
-<p>Berikut Full Kodenya</p>
+<h5>Berikut Full Kodenya</h5>
 
           <?php
           //mendefinisikan class Database
@@ -91,7 +92,8 @@
           }
           ?>
           
-<p>Berikut Outputnya</p>
+<h5>Berikut Outputnya</h5>
+
 -------------------------------------------------------------
 <h4>3. Mambuat Class Repots yang mewarisi Class Database</h4>
 <p>Definisi class Reports</p>
