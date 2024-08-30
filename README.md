@@ -11,7 +11,7 @@
 <p>Case Study: Menggunakan tabel reports & student_withdrawal</p>
 
 <h4>1. Membuat Database dan tabel reports & student_withdrawal</h4>
-<p>Membuat database dan tabel reports & student_withdrawal di phpmyadmin. Nama dan isi tabel disesuaikan dengan ERD yang dibuat.
+<p>Membuat database dan tabel reports & student_withdrawal di phpmyadmin. Nama dan isi tabel disesuaikan dengan ERD yang dibuat.<br>
 Isi tabel reports meliputi:
 <ol>
   <li>Id Report</li>
@@ -37,7 +37,7 @@ Isi tabel student_withdrawal meliputi:
 </ol>
 </p>
 
-<h4>Membuat Class Database untuk mengkoneksi ke database</h4>
+<h4>2. Membuat Class Database untuk mengkoneksi ke database</h4>
 <p>Mendefinisikan class Database</p>
 
         //mendefinisikan class Database
@@ -143,88 +143,21 @@ Isi tabel student_withdrawal meliputi:
             <meta charset="UTF-8">
             <meta name="viewport" content="width=device-width, initial-scale=1.0">
             <title>Tampil Data</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
         </head>
         <body>
-            <a href = "tampil_repots.php">Data Withdrawal</a>
-            <a href = "tampil_withdrawal.php">Data Withdrawal</a>
-            <table border="1">
-                 <tr>
-                    <th>No</th> <!-- Kolom untuk nomor urut. -->
-                    <th>Id Report</th> <!-- Kolom untukId Report. -->
-                    <th>Id Warnings</th> <!-- Kolom untuk Id Warnings. -->
-                    <th>Id Gpas</th> <!-- Kolom untuk Id Gpas. -->
-                    <th>Id Guidance</th> <!-- Kolom untuk Id Guidance -->
-                    <th>Id Achievments</th> <!-- Kolom untuk Id Achievments-->
-                    <th>Id Scholarship</th> <!-- Kolom untuk Id Scholarship -->
-                    <th>Id Student Withdrawals</th> <!-- Kolom untuk Id Student Withdrawals -->
-                    <th>Id Tuition Arreas</th> <!-- Kolom untuk Id Tuition Arreas. -->
-                    <th>Reports Date</th> <!-- Kolom untuk Reports Date. -->
-                    <th>Status</th> <!-- Kolom untuk Status. -->
-                    <th>Has Acc Academic Advisor</th> <!-- Kolom untuk status Has Acc Academic Advisor. -->
-                    <th>Has Acc Head Of program</th> <!-- Kolom untuk status Has Acc Head Of program -->
-                </tr>
-                        <?php 
-                        $no = 1; // Inisialisasi nomor urut mulai dari 1.
-                        foreach($data as $row){ // Melakukan perulangan melalui setiap baris data yang diambil dari database.
-                            ?>
-                            <tr>
-                                <td><?php echo $no++; ?></td> <!-- Menampilkan nomor urut dan menambahkannya setiap kali perulangan. -->
-                                <td><?php echo $row['id_report']; ?></td> <!-- Menampilkan Id Report -->
-                                <td><?php echo $row['id_warnings']; ?></td> <!-- Menampilkan Id Warnings. -->
-                                <td><?php echo $row['id_gpas']; ?></td>     <!-- Menampilkan Id Gpas. -->
-                                <td><?php echo $row['id_guidance']; ?></td>  <!-- Menampilkan Id Guidance. -->
-                                <td><?php echo $row['id_achievments']; ?></td>  <!-- Menampilkan Id Achievments. -->
-                                <td><?php echo $row['id_scholarship']; ?></td>  <!-- Menampilkan Id Scholarship -->
-                                <td><?php echo $row['id_students_withdrawals']; ?></td>  <!-- Menampilkan Id Student Withdrawals -->
-                                <td><?php echo $row['id_tuition_arrears']; ?></td>  <!-- Menampilkan Id Tuition Arreas -->
-                                <td><?php echo $row['report_date']; ?></td> <!-- Menampilkan Reports Date -->
-                                <td><?php echo $row['status']; ?></td>  <!-- Menampilkan Status. -->
-                                <td><?php echo $row['has_acc_academic_advisor']; ?></td>  <!-- Menampilkan Has Acc Academic Advisor. -->
-                                <td><?php echo $row['has_acc_head_of_program']; ?></td>  <!-- Menampilkan Has Acc Head Of program -->
-                            </tr>
-                            <?php 
-                        }
-                        ?>
-                </table>
-        </body>
-        </html>
-
-<p>Kode ini digunakan untuk menampilkan data dari tabel reports yang memiliki status 'pending'. Data ditampilkan dalam tabel HTML di mana setiap baris mewakili satu entri dari tabel reports. </p>
-
-<h5>Berikut Full Kodenya</h5>
-
-        <?php
-        require_once ('Database.php');
-        //class Reports yang mewarisi dari class Database
-        class Repotrs extends Database {
-            //method untuk mengambil dan menampilkan data dari tabel reports
-            function tampilData(){
-                $query = "SELECT * FROM reports where status = 'pending' "; // Membuat query SQL untuk mengambil semua data dari tabel "reports".
-                $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
-                while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
-        			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
-        		}
-        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel "reports".
-        
-            }
-        }
-        //membuat instansiasi objek dari class Reports
-        $reports = new Repotrs();
-        // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $tampil.
-        $tampil = $reports->tampilData();
-        ?>
-        
-        <!DOCTYPE html>
-        <html lang="en">
-        <head>
-            <meta charset="UTF-8">
-            <meta name="viewport" content="width=device-width, initial-scale=1.0">
-            <title>Tampil Data</title>
-        </head>
-        <body>
-            <a href = "tampil_repots.php">Data Withdrawal</a>
-            <a href = "tampil_withdrawal.php">Data Withdrawal</a>
-            <table border="1">
+            <!--Tampilan Navbar-->
+            <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="tampil_repots.php">Data Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tampil_withdrawal.php">Data Withdrawal</a>
+            </li>
+            </ul>
+            <div class="container-fluid">
+            <table class="table table-bordered">
                  <tr>
                     <th>No</th> <!-- Kolom untuk nomor urut. -->
                     <th>Id Report</th> <!-- Kolom untukId Report. -->
@@ -263,12 +196,267 @@ Isi tabel student_withdrawal meliputi:
                         }
                         ?>
                 </table>
+                </div>
+        </body>
+        </html>
+<p>Kode ini digunakan untuk menampilkan data dari tabel reports yang memiliki status 'pending'. Data ditampilkan dalam tabel HTML di mana setiap baris mewakili satu entri dari tabel reports. Kode PHP mengambil data dari database menggunakan class Reports sementara bagian HTML menggunakan Bootstrap untuk mempercantik tampilan data.</p>
+
+<h5>Berikut Full Kodenya</h5>
+
+        <?php
+        require_once ('Database.php');
+        //class Reports yang mewarisi dari class Database
+        class Repotrs extends Database {
+            //method untuk mengambil dan menampilkan data dari tabel reports
+            function tampilData(){
+                $query = "SELECT * FROM reports where status = 'pending' "; // Membuat query SQL untuk mengambil semua data dari tabel "reports".
+                $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
+                while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
+        			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
+        		}
+        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel "reports".
+        
+            }
+        }
+        //membuat instansiasi objek dari class Reports
+        $reports = new Repotrs();
+        // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $tampil.
+        $tampil = $reports->tampilData();
+        ?>
+        
+        <!DOCTYPE html>![Screenshot 2024-08-30 103321](https://github.com/user-attachments/assets/063e3d72-0f4b-47d0-b1e5-245821d138da)
+
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Tampil Data</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        </head>
+        <body>
+            <!--Tampilan Navbar-->
+            <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="tampil_repots.php">Data Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tampil_withdrawal.php">Data Withdrawal</a>
+            </li>
+            </ul>
+            <div class="container-fluid">
+            <table class="table table-bordered">
+                 <tr>
+                    <th>No</th> <!-- Kolom untuk nomor urut. -->
+                    <th>Id Report</th> <!-- Kolom untukId Report. -->
+                    <th>Id Warnings</th> <!-- Kolom untuk Id Warnings. -->
+                    <th>Id Gpas</th> <!-- Kolom untuk Id Gpas. -->
+                    <th>Id Guidance</th> <!-- Kolom untuk Id Guidance -->
+                    <th>Id Achievments</th> <!-- Kolom untuk Id Achievments-->
+                    <th>Id Scholarship</th> <!-- Kolom untuk Id Scholarship -->
+                    <th>Id Student Withdrawals</th> <!-- Kolom untuk Id Student Withdrawals -->
+                    <th>Id Tuition Arreas</th> <!-- Kolom untuk Id Tuition Arreas. -->
+                    <th>Reports Date</th> <!-- Kolom untuk Reports Date. -->
+                    <th>Status</th> <!-- Kolom untuk Status. -->
+                    <th>Has Acc Academic Advisor</th> <!-- Kolom untuk status Has Acc Academic Advisor. -->
+                    <th>Has Acc Head Of program</th> <!-- Kolom untuk status Has Acc Head Of program -->
+                </tr>
+                        <?php 
+                        $no = 1; // Inisialisasi nomor urut mulai dari 1.
+                        foreach($tampil as $row){ // Melakukan perulangan melalui setiap baris data yang diambil dari database.
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td> <!-- Menampilkan nomor urut dan menambahkannya setiap kali perulangan. -->
+                                <td><?php echo $row['id_report']; ?></td> <!-- Menampilkan Id Report -->
+                                <td><?php echo $row['id_warnings']; ?></td> <!-- Menampilkan Id Warnings. -->
+                                <td><?php echo $row['id_gpas']; ?></td>     <!-- Menampilkan Id Gpas. -->
+                                <td><?php echo $row['id_guidance']; ?></td>  <!-- Menampilkan Id Guidance. -->
+                                <td><?php echo $row['id_achievments']; ?></td>  <!-- Menampilkan Id Achievments. -->
+                                <td><?php echo $row['id_scholarship']; ?></td>  <!-- Menampilkan Id Scholarship -->
+                                <td><?php echo $row['id_students_withdrawals']; ?></td>  <!-- Menampilkan Id Student Withdrawals -->
+                                <td><?php echo $row['id_tuition_arrears']; ?></td>  <!-- Menampilkan Id Tuition Arreas -->
+                                <td><?php echo $row['report_date']; ?></td> <!-- Menampilkan Reports Date -->
+                                <td><?php echo $row['status']; ?></td>  <!-- Menampilkan Status. -->
+                                <td><?php echo $row['has_acc_academic_advisor']; ?></td>  <!-- Menampilkan Has Acc Academic Advisor. -->
+                                <td><?php echo $row['has_acc_head_of_program']; ?></td>  <!-- Menampilkan Has Acc Head Of program -->
+                            </tr>
+                            <?php 
+                        }
+                        ?>
+                </table>
+                </div>
+        </body>
+        </html>
+
+<p>Kode ini digunakan untuk menampilkan data dari tabel student_withdrawals. Data ditampilkan dalam tabel HTML di mana setiap baris mewakili satu entri dari tabel student_withdrawals. Kode PHP mengambil data dari database menggunakan class StudentWithdrawal sementara bagian HTML menggunakan Bootstrap untuk mempercantik tampilan data.</p>
+        
+<h5>Berikut Outputnya</h5>
+
+![Screenshot 2024-08-30 103321](https://github.com/user-attachments/assets/293838c1-6abc-421d-8fd4-1ac8e18e6829)
+
+----------------------------------------------------------------
+<h4>4. Membuat Class StudentWithdrawal yang mewarisi Class Database</h4>
+<p>Definisi class StudentWithdrawal</p>
+
+        <?php
+        require_once ('Database.php');
+        //class StudentWtihdrawal yang mewarisi dari class Database
+        class StudentWithdrawal extends Database {
+
+<p>require_once ('Database.php') untuk menyertakan file Database.php yang berisi definisi class Database ke dalam skrip ini. Ini memastikan file hanya disertakan satu kali.</p>
+<p> Class StudentWithdrawal (child class) mewarisi (inheritance) dari class Database (parent class). Ini berarti StudentWithdrawal memiliki akses ke semua properti dan metode yang didefinisikan dalam Database termasuk koneksi ke database.</p>
+        
+            /* Override method tampilData
+            method untuk mengambil dan menampilkan data dari tabel reports*/
+            function tampilData(){
+                $query = "SELECT * FROM student_withdrawals where withdrawal_type = 'withdrawal'"; // Membuat query SQL untuk mengambil semua data dari tabel "withdrawal"
+                $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
+                while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
+        			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
+        		}
+        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel withdrawal
+        
+<p>Metode tampilData di-override dalam kelas StudentWithdrawal untuk mengambil data spesifik dari tabel student_withdrawals di mana withdrawal_type adalah 'withdrawal'. Metode ini mengembalikan data yang diambil dalam bentuk array $hasil.</p>
+          
+        //membuat instansiasi objek dari class StudentWithdrawal
+        $withdrawal = new StudentWithdrawal();
+
+<p>Membuat objek StudentWithdrawal yang secara otomatis menginisialisasi koneksi database.</p>
+        
+        // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $tampil.
+        $tampil = $withdrawal->tampilData();
+
+<p>Memanggil metode tampilData untuk mengambil data dari tabel student_withdrawals dan menyimpannya dalam variabel $tampil.</p>
+          
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Tampil Data</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        </head>
+        <body>
+            <!--Tampilan Navbar-->
+            <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="tampil_repots.php">Data Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tampil_withdrawal.php">Data Withdrawal</a>
+            </li>
+            </ul>
+            <div class="container-fluid">
+            <table class="table table-bordered">
+                        <tr>
+                            <th>No</th> <!-- Kolom untuk nomor urut. -->
+                            <th>Id Student Withdrawals </th> <!-- Kolom untuk Id Student Withdrawals. -->
+                            <th>Id Student </th> <!-- Kolom untuk Id Student. -->
+                            <th>Withdrawal Type</th> <!-- Kolom untuk Withdrawal Type. -->
+                            <th>Decree Number</th> <!-- Kolom untuk Decree Number. -->
+                            <th>Reason</th> <!-- Kolom untuk Reason -->
+                        </tr>
+                        <?php 
+                        $no = 1; // Inisialisasi nomor urut mulai dari 1.
+                        foreach($tampil as $row){ // Melakukan perulangan melalui setiap baris data yang diambil dari database.
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td> <!-- Menampilkan nomor urut dan menambahkannya setiap kali perulangan. -->
+                                <td><?php echo $row['id_student_withdrawals']; ?></td> <!-- Menampilkan Id Student withdrawal -->
+                                <td><?php echo $row['id_student']; ?></td> <!-- Menampilkan Id Report -->
+                                <td><?php echo $row['withdrawal_type']; ?></td> <!-- Menampilkan withdrawal type -->
+                                <td><?php echo $row['decree_number']; ?></td> <!-- Menampilkan decree number -->
+                                <td><?php echo $row['reason']; ?></td> <!-- Menampilkan reason -->
+                            </tr> 
+                            <?php 
+                        }
+                        ?>
+                </table>
+                </div>
+        </body>
+        </html> 
+
+<p>Kode ini digunakan untuk menampilkan data dari tabel student_withdrawals yang memiliki tipe penarikan 'withdrawal'. Data ditampilkan dalam tabel HTML di mana setiap baris mewakili satu entri dari tabel student_withdrawals. Kode PHP mengambil data dari database menggunakan kelas StudentWithdrawal, sementara bagian HTML menggunakan Bootstrap untuk mempercantik tampilan data.</p>
+        
+--------------------------------------------
+<h5>Berikut Full Kodenya</h5>
+
+        <?php
+        require_once ('Database.php');
+        //class StudentWtihdrawal yang mewarisi dari class Database
+        class StudentWithdrawal extends Database {
+            /* Override method tampilData
+            method untuk mengambil dan menampilkan data dari tabel reports*/
+            function tampilData(){
+                $query = "SELECT * FROM student_withdrawals where withdrawal_type = 'withdrawal'"; // Membuat query SQL untuk mengambil semua data dari tabel "withdrawal"
+                $data = mysqli_query($this->koneksi, $query); // Mengeksekusi query dan menyimpan hasilnya ke variabel $data.
+                while($row = mysqli_fetch_array($data)){ // Mengambil setiap baris hasil query dalam bentuk array.
+        			$hasil[] = $row; // Menyimpan setiap baris data ke dalam array $hasil.
+        		}
+        		return $hasil; // Mengembalikan array $hasil yang berisi semua data dari tabel withdrawal
+        
+            }
+        }
+        //membuat instansiasi objek dari class StudentWithdrawal
+        $withdrawal = new StudentWithdrawal();
+        // Memanggil fungsi "tampilData" dan menyimpan hasilnya ke variabel $tampil.
+        $tampil = $withdrawal->tampilData();
+        ?>
+        
+        <!DOCTYPE html>
+        <html lang="en">
+        <head>
+            <meta charset="UTF-8">
+            <meta name="viewport" content="width=device-width, initial-scale=1.0">
+            <title>Tampil Data</title>
+            <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+        </head>
+        <body>
+            <!--Tampilan Navbar-->
+            <ul class="nav nav-tabs">
+            <li class="nav-item">
+                <a class="nav-link active" aria-current="page" href="tampil_repots.php">Data Reports</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="tampil_withdrawal.php">Data Withdrawal</a>
+            </li>
+            </ul>
+            <div class="container-fluid">
+            <table class="table table-bordered">
+                        <tr>
+                            <th>No</th> <!-- Kolom untuk nomor urut. -->
+                            <th>Id Student Withdrawals </th> <!-- Kolom untuk Id Student Withdrawals. -->
+                            <th>Id Student </th> <!-- Kolom untuk Id Student. -->
+                            <th>Withdrawal Type</th> <!-- Kolom untuk Withdrawal Type. -->
+                            <th>Decree Number</th> <!-- Kolom untuk Decree Number. -->
+                            <th>Reason</th> <!-- Kolom untuk Reason -->
+                        </tr>
+                        <?php 
+                        $no = 1; // Inisialisasi nomor urut mulai dari 1.
+                        foreach($tampil as $row){ // Melakukan perulangan melalui setiap baris data yang diambil dari database.
+                            ?>
+                            <tr>
+                                <td><?php echo $no++; ?></td> <!-- Menampilkan nomor urut dan menambahkannya setiap kali perulangan. -->
+                                <td><?php echo $row['id_student_withdrawals']; ?></td> <!-- Menampilkan Id Student withdrawal -->
+                                <td><?php echo $row['id_student']; ?></td> <!-- Menampilkan Id Report -->
+                                <td><?php echo $row['withdrawal_type']; ?></td> <!-- Menampilkan withdrawal type -->
+                                <td><?php echo $row['decree_number']; ?></td> <!-- Menampilkan decree number -->
+                                <td><?php echo $row['reason']; ?></td> <!-- Menampilkan reason -->
+                            </tr> 
+                            <?php 
+                        }
+                        ?>
+                </table>
+                </div>
         </body>
         </html>
 
 <h5>Berikut Outputnya</h5>
 
-----------------------------------------------------------------
+![Screenshot 2024-08-30 104047](https://github.com/user-attachments/assets/3cad6273-d994-49e2-8fe3-26e3a9fc5361)
+
         
                   
         
